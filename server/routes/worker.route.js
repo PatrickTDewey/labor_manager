@@ -5,4 +5,5 @@ module.exports = function(app){
   app.post('/api/workers/new', WorkerController.newWorker);
   app.delete('/api/workers/delete/:id', WorkerController.deleteWorker)
   app.put('/api/workers/update/:id' , WorkerController.updateWorker)
+  app.put('/api/workers/update_all',WorkerController.updateAll)
 }

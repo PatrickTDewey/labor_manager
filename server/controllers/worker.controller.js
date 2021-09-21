@@ -27,3 +27,8 @@ module.exports.getWorker = (req,res) =>{
       .then(product => res.json(product))
       .catch(err => res.json(err))
 }
+module.exports.updateAll = (req,res) =>{
+  Worker.updateMany({}, {working: req.body})
+    .then(conf => res.json(conf))
+    .catch(err => res.status(400).json(err))
+}

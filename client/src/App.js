@@ -4,6 +4,7 @@ import Main from './views/Main';
 import NavBar from './components/NavBar';
 import WorkerSchedule from './views/WorkerSchedule'
 import EditWorkerForm from './components/EditWorkerForm'
+import TimeForm from './components/TimeForm';
 
 //pair programmed by Patrick Dewey and Spencer Rauch
 // const addSubmit = e => {
@@ -30,6 +31,9 @@ function App() {
         <Switch>
           <Route exact path='/schedule/day/:day_id'> 
             <WorkerSchedule />
+          </Route>
+          <Route exact path='/adjust_hours'> 
+            <TimeForm />
           </Route>
           <Route exact path='/workers/add'>
             <WorkerForm />
