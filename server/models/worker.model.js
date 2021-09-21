@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const WorkerSchema = new mongoose.Schema({
     firstName: { type: String },
     lastName: { type: String },
-    availability: { type: Array, default: Array(7).fill(0)},
+    availability: { type: Array, default: Array(7).fill(true)},
     working: {type: Object, default:  {
         '9:00': Array(7).fill(0),
         '9:30': Array(7).fill(0),

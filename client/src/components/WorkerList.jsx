@@ -29,19 +29,19 @@ const WorkerList = ({ workers, onDelete }) => {
                             <td>{worker.availability.map((a,i)=>{
                                 switch(i){
                                     case 0:
-                                        return (a == 0 ? 'Monday ' : null)
+                                        return (a ? 'Monday ' : null)
                                     case 1:
-                                        return (a == 0 ? 'Tuesday ' : null)
+                                        return (a ? 'Tuesday ' : null)
                                     case 2:
-                                        return (a == 0 ? 'Wednesday ' : null)
+                                        return (a ? 'Wednesday ' : null)
                                     case 3:
-                                        return (a == 0 ? 'Thursday ' : null)
+                                        return (a ? 'Thursday ' : null)
                                     case 4:
-                                        return (a == 0 ? 'Friday ' : null)
+                                        return (a ? 'Friday ' : null)
                                     case 5:
-                                        return (a == 0 ? 'Saturday ' : null)
+                                        return (a ? 'Saturday ' : null)
                                     case 6:
-                                        return (a == 0 ? 'Sunday ' : null )
+                                        return (a ? 'Sunday ' : null )
                                         
                                 }
                             })}</td>

@@ -12,26 +12,30 @@ const EditWorkerForm = (props) => {
           .then(res => setWorker(res.data))
           .catch(err => console.log(err))
       }, []);
-    // const [form, setForm] = useState({
-    //     firstName: '',
-    //     lastName: '',
-    // });
-    
+
     const changeHandler = (e) =>{
         const {name, value} = e.target
         setWorker({...worker, [name]: value})
     }
+    const onChangeBox = e => {
+        const {name} = e.target;
+        let index = parseInt(name)
+        let newAvail = [...worker.availability]
+        newAvail[index] = !newAvail[index];
+        setWorker({...worker, availability: newAvail})
+    }
+    
     
     const history = useHistory();
     const onSubmitHandler = e => {
         // prevent default behavior of the submit
         e.preventDefault();
         // make a post request to create a new user\
-        const { firstName, lastName} = worker
-        axios.post("http://localhost:8000/api/workers/new", { firstName, lastName})
-            .then(res => console.log(res))
+        
+        axios.put("http://localhost:8000/api/workers/update/" +id, worker)
+            .then(res => history.push('/'))
             .catch(err => console.log(err))
-        history.push('/')
+        
     }
     return (
         <>
@@ -51,7 +55,37 @@ const EditWorkerForm = (props) => {
             </div> */}
             <input type="submit" value="Add Worker" className="btn btn-primary" />
             <Link className="ms-3" to='/'>Home</Link>
-        </form> : null
+                   <div>
+                   <label htmlFor='0'>Monday</label>
+                   <input type='checkbox' name='0' checked={worker.availability[0]} onChange={onChangeBox}/>
+                   </div>
+                   <div>
+                   <label htmlFor='1'>Tuesday</label>
+                   <input type='checkbox' name='1' checked={worker.availability[1]} onChange={onChangeBox}/>
+                   </div>
+                   <div>
+                   <label htmlFor='2'>Wednesday</label>
+                   <input type='checkbox' name='2' checked={worker.availability[2]} onChange={onChangeBox}/>
+                   </div>
+                   <div>
+                   <label htmlFor='3'>Thursday</label>
+                   <input type='checkbox' name='3' checked={worker.availability[3]} onChange={onChangeBox}/>
+                   </div>
+                   <div>
+                   <label htmlFor='4'>Friday</label>
+                   <input type='checkbox' name='4' checked={worker.availability[4]} onChange={onChangeBox}/>
+                   </div>
+                   <div>
+                   <label htmlFor='5'>Saturday</label>
+                   <input type='checkbox' name='5' checked={worker.availability[5]} onChange={onChangeBox}/>
+                   </div>
+                   <label htmlFor='6'>Sunday</label>
+                   <input type='checkbox' name='6' checked={worker.availability[6]} onChange={onChangeBox}/>
+                   <div>
+                   </div>
+        </form> 
+                   
+        : null
         }
         </>
     )
