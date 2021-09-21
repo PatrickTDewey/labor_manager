@@ -10,8 +10,11 @@ const TimeForm = (props) => {
     const submitHandler = e => {
         e.preventDefault();
         let key = String(e.target.start.value)
-        let start = new Date(0,0,0, e.target.start.value.slice(0,2), e.target.start.value.slice(3),0,0)
-        let end = new Date(0,0,0, e.target.end.value.slice(0,2), e.target.end.value.slice(3),0,0)
+        let start = new Date(1,1,1, e.target.start.value.slice(0,2), e.target.start.value.slice(3),0,0)
+        let end = new Date(1,1,1, e.target.end.value.slice(0,2), e.target.end.value.slice(3),0,0)
+        if (end < start){
+            end.setDate(2)
+        }
         console.log(start)
         let obj = {}
         obj[key] = Array(7).fill(0)
