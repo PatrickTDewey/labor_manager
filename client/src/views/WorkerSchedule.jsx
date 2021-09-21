@@ -2,11 +2,12 @@ import React from 'react'
 import axios from 'axios'
 import { useState, useEffect } from 'react'
 import { useParams, Link } from 'react-router-dom'
+import '../index.css'
 
 const WorkerSchedule = () => {
 
     const { day_id } = useParams();
-    let day
+    let day;
     switch (parseInt(day_id)) {
         case 1:
             day = 'Monday';
@@ -46,15 +47,17 @@ const WorkerSchedule = () => {
             })
             .catch(err => console.log(err))
     }, [day_id])
-    const handleClick = (e, worker) => {
-        let filteredp = workers.filter(a => worker._id !== a._id)
-        let editedArray = [...worker.working];
-        editedArray[day_id - 1] = parseInt(e.target.value)
-        worker = { ...worker, gameStatuses: editedArray }
+    const handleClick = (e, worker, key) => {
+        let filteredWorkers = workers.filter(a => worker._id !== a._id)
+        if (worker.working[key][day_id - 1] < 2) {
+            worker.working[key][day_id - 1] += parseInt(e.target.value)
+        } else {
+            worker.working[key][day_id -1] = 0
+        }
 
         axios.put('http://localhost:8000/api/workers/update/' + worker._id, worker)
             .then(res => {
-                let unsorted = [...filteredp, worker]
+                let unsorted = [...filteredWorkers, worker]
                 setWorkers(unsorted.sort((a, b) => (a.lastName.localeCompare(b.lastName))))
             })
             .catch(err => console.log(err))
@@ -88,8 +91,7 @@ const WorkerSchedule = () => {
                             {workers && workers.map((worker, i) => {
                                 return <tr key={i}>
                                     <td>{worker.firstName} {worker.lastName} </td>
-                                    {Object.keys(worker.working).map((key, idx) => <td key={idx}><button onClick={(e) => { handleClick(e, worker, key) }} className={worker.working[key][day_id-1] === 1 ? 'btn btn-success me-2' : 'btn btn-light me-2' } value={1}></button></td>)}
-                                    {/* worker[key][day-1] */}
+                                    {Object.keys(worker.working).map((key, idx) => <td key={idx}><button onClick={(e) => { handleClick(e, worker, key) }} className={parseInt(worker.working[key][day_id-1]) === 0 ? 'btn btn-danger': parseInt(worker.working[key][day_id-1]) === 1 ? 'btn btn-success' : 'btn btn-warning'} value={1}></button></td>)}
                                 </tr>
 
                             })}
