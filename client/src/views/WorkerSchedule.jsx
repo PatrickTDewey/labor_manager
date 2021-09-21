@@ -52,7 +52,7 @@ const WorkerSchedule = () => {
         if (worker.working[key][day_id - 1] < 2) {
             worker.working[key][day_id - 1] += parseInt(e.target.value)
         } else {
-            worker.working[key][day_id -1] = 0
+            worker.working[key][day_id - 1] = 0
         }
 
         axios.put('http://localhost:8000/api/workers/update/' + worker._id, worker)
@@ -65,9 +65,7 @@ const WorkerSchedule = () => {
     return (
         <div>
             {workers &&
-                <div className="row">
-
-
+                <>
                     <h1> Worker Status - Day {day} </h1>
                     <div className="d-flex">
                         <Link className="me-2 " to='/schedule/day/1'>Mon</Link>
@@ -78,29 +76,28 @@ const WorkerSchedule = () => {
                         <Link className="me-2 " to='/schedule/day/6'>Sat</Link>
                         <Link className="me-2" to='/schedule/day/7'>Sun</Link>
                     </div>
-                    <table className="table table-dark table-hover table-striped">
-                        <thead>
-                            <tr>
-                                <th>Worker Name</th>
-                                {
-                                    Object.keys(workers[0].working).map((key, i) => <th key={i}>{key}</th>)
-                                }
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {workers && workers.map((worker, i) => {
-                                return <tr key={i}>
-                                    <td>{worker.firstName} {worker.lastName} </td>
-                                    {Object.keys(worker.working).map((key, idx) => <td key={idx}><button onClick={(e) => { handleClick(e, worker, key) }} className={parseInt(worker.working[key][day_id-1]) === 0 ? 'btn btn-danger': parseInt(worker.working[key][day_id-1]) === 1 ? 'btn btn-success' : 'btn btn-warning'} value={1}></button></td>)}
+                    <div className="table-responsive">
+                        <table className="table table-sm table-dark table-hover table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Worker Name</th>
+                                    {
+                                        Object.keys(workers[0].working).map((key, i) => <th key={i}>{key}</th>)
+                                    }
                                 </tr>
-
-                            })}
-                        </tbody>
-
-
-                    </table>
+                            </thead>
+                            <tbody>
+                                {workers && workers.map((worker, i) => {
+                                    return <tr key={i}>
+                                        <td>{worker.firstName} {worker.lastName} </td>
+                                        {Object.keys(worker.working).map((key, idx) => <td key={idx}><button onClick={(e) => { handleClick(e, worker, key) }} className={parseInt(worker.working[key][day_id - 1]) === 0 ? 'btn btn-danger' : parseInt(worker.working[key][day_id - 1]) === 1 ? 'btn btn-success' : 'btn btn-warning'} value={1}></button></td>)}
+                                    </tr>
+                                })}
+                            </tbody>
+                        </table>
+                    </div>
                     <Link to='/'>Home</Link>
-                </div>
+                </>
 
             }
 
