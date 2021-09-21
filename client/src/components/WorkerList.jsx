@@ -26,7 +26,25 @@ const WorkerList = ({ workers, onDelete }) => {
                     {workers.map(worker => {
                         return <tr key={worker.firstName} >
                             <td className="btn-link">{worker.firstName} {worker.lastName}</td>
-                            <td>{worker.availability}</td>
+                            <td>{worker.availability.map((a,i)=>{
+                                switch(i){
+                                    case 0:
+                                        return (a == 0 ? 'Monday ' : null)
+                                    case 1:
+                                        return (a == 0 ? 'Tuesday ' : null)
+                                    case 2:
+                                        return (a == 0 ? 'Wednesday ' : null)
+                                    case 3:
+                                        return (a == 0 ? 'Thursday ' : null)
+                                    case 4:
+                                        return (a == 0 ? 'Friday ' : null)
+                                    case 5:
+                                        return (a == 0 ? 'Saturday ' : null)
+                                    case 6:
+                                        return (a == 0 ? 'Sunday ' : null )
+                                        
+                                }
+                            })}</td>
                             <td>
                                 <button  onClick={() => clickHandler(worker._id)}className="btn btn-danger me-2">Delete</button>
                                 <Link to={`/workers/edit/${worker._id}`} className="btn btn-warning">Edit</Link>
