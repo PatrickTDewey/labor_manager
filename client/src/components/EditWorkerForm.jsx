@@ -53,8 +53,6 @@ const EditWorkerForm = (props) => {
                 <input type="text" className="form-control" name="position" id="position" placeholder="position" value={form.position} onChange={(e) => setForm({ ...form, position: e.target.value })} />
                 <label htmlFor="position">Position:</label>
             </div> */}
-            <input type="submit" value="Add Worker" className="btn btn-primary" />
-            <Link className="ms-3" to='/'>Home</Link>
                    <div>
                    <label htmlFor='0'>Monday</label>
                    <input type='checkbox' name='0' checked={worker.availability[0]} onChange={onChangeBox}/>
@@ -83,6 +81,8 @@ const EditWorkerForm = (props) => {
                    <input type='checkbox' name='6' checked={worker.availability[6]} onChange={onChangeBox}/>
                    <div>
                    </div>
+            <input type="submit" value="Add Worker" className="btn btn-primary" />
+            <Link className="ms-3" to='/'>Home</Link>
         </form> 
                    
         : null
