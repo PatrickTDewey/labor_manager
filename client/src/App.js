@@ -30,7 +30,7 @@ function App() {
     '9:30': Array(7).fill(0),
     '10:00': Array(7).fill(0),
     '10:30': Array(7).fill(0),
-    '11:30': Array(7).fill(0),
+    '11:00': Array(7).fill(0),
     '11:30': Array(7).fill(0),
     '12:00': Array(7).fill(0),
     '12:30': Array(7).fill(0),
