@@ -26,7 +26,7 @@ const WorkerList = ({ workers, onDelete }) => {
                     {workers.map(worker => {
                         return <tr key={worker.firstName} >
                             <td>{worker.firstName} {worker.lastName}</td>
-                            <td>{worker.availability.map((a,i)=>{
+                            <td>{worker.availability.map((a,i) => {
                                 switch(i){
                                     case 0:
                                         return (a ? 'Monday ' : null)
@@ -42,7 +42,8 @@ const WorkerList = ({ workers, onDelete }) => {
                                         return (a ? 'Saturday ' : null)
                                     case 6:
                                         return (a ? 'Sunday ' : null )
-                                        
+                                    default:
+                                        return null;
                                 }
                             })}</td>
                             <td>

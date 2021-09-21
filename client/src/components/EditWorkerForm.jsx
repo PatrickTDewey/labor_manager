@@ -6,12 +6,11 @@ import '../index.css'
 const EditWorkerForm = (props) => {
     const [worker, setWorker] = useState();
     const {id} = useParams();
-    const submit = props;
     useEffect(() => {
         axios.get("http://localhost:8000/api/workers/" + id)
           .then(res => setWorker(res.data))
           .catch(err => console.log(err))
-      }, []);
+      });
 
     const changeHandler = (e) =>{
         const {name, value} = e.target
