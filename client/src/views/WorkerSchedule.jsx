@@ -93,7 +93,7 @@ const WorkerSchedule = () => {
                                 {workers && workers.map((worker, i) => {
                                     return <tr key={i}>
                                         <td>{worker.firstName} {worker.lastName} </td>
-                                        {Object.keys(worker.working).map((key, idx) => <td key={idx}><button onClick={(e) => { handleClick(e, worker, key) }} className={parseInt(worker.working[key][day_id - 1]) === 0 ? 'btn btn-danger' : parseInt(worker.working[key][day_id - 1]) === 1 ? 'btn btn-success' : 'btn btn-warning'} value={1}></button></td>)}
+                                        {Object.keys(worker.working).map((key, idx) => <td key={idx}><button onClick={(e) => { handleClick(e, worker, key) }} className={parseInt(worker.working[key][day_id - 1]) === 0 ? 'btn btn-danger' : parseInt(worker.working[key][day_id - 1]) === 1 ? 'btn btn-primary' : 'btn btn-warning'} value={1}></button></td>)}
                                     </tr>
                                 })}
                             </tbody>
