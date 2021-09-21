@@ -81,7 +81,7 @@ const EditWorkerForm = (props) => {
                    <input type='checkbox' name='6' checked={worker.availability[6]} onChange={onChangeBox}/>
                    <div>
                    </div>
-            <input type="submit" value="Add Worker" className="btn btn-primary" />
+            <input type="submit" value="Edit" className="btn btn-primary" />
             <Link className="ms-3" to='/'>Home</Link>
         </form> 
                    
