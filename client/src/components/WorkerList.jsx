@@ -25,7 +25,7 @@ const WorkerList = ({ workers, onDelete }) => {
                 <tbody>
                     {workers.map(worker => {
                         return <tr key={worker.firstName} >
-                            <td className="btn-link">{worker.firstName} {worker.lastName}</td>
+                            <td>{worker.firstName} {worker.lastName}</td>
                             <td>{worker.availability.map((a,i)=>{
                                 switch(i){
                                     case 0:
