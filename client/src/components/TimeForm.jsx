@@ -2,7 +2,8 @@ import axios from 'axios';
 import React, {useState} from 'react'
 import { useHistory } from 'react-router-dom';
 
-const TimeForm = () => {
+const TimeForm = (props) => {
+    const {setWorking} = props;
     const [form, setForm] = useState();
     const history = useHistory();
 
@@ -18,6 +19,7 @@ const TimeForm = () => {
             start.setMinutes( start.getMinutes() + 30)
             obj[String(start).slice(16,21)] = Array(7).fill(0)
         }
+        setWorking(obj)
         axios.put('http://localhost:8000/api/workers/update_all', obj)
             .then(res => console.log(res))
             .catch(err => console.log(err))
