@@ -4,10 +4,12 @@ import axios from 'axios';
 import '../index.css'
 
 const WorkerForm = (props) => {
+    const {working} = props
     const [form, setForm] = useState({
         firstName: '',
         lastName: '',
-        availability: Array(7).fill(true)
+        availability: Array(7).fill(true),
+        working
     });
     
     const changeHandler = (e) =>{
