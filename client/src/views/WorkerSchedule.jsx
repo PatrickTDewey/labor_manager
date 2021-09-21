@@ -49,11 +49,10 @@ const WorkerSchedule = () => {
                 // availability
                 setWorkers(unsorted.filter(worker => worker.availability[day_id - 1]).sort((a, b) => a.lastName.localeCompare(b.lastName)))
                 setUnavailable(unsorted.filter(worker => !(worker.availability[day_id - 1])))
-                setTime(Object.keys(res.data[0].working));
-                setSelect('24')
+                setTime(time.length > 1? time : Object.keys(res.data[0].working));
             })
             .catch(err => console.log(err))
-    }, [day_id])
+    }, [day_id, time])
     const handleClick = (e, worker, key) => {
         let filteredWorkers = workers.filter(a => worker._id !== a._id)
         if (worker.working[key][day_id - 1] < 2) {
@@ -121,7 +120,7 @@ const WorkerSchedule = () => {
                                 {workers && workers.map((worker, i) => {
                                     return <tr key={i}>
                                         <td>{worker.firstName} {worker.lastName} </td>
-                                        {Object.keys(worker.working).map((key, idx) => <td key={idx}><button onClick={(e) => { handleClick(e, worker, key) }} className={parseInt(worker.working[key][day_id - 1]) === 0 ? 'btn btn-danger' : parseInt(worker.working[key][day_id - 1]) === 1 ? 'btn btn-primary' : 'btn btn-warning'} value={1}></button></td>)}
+                                        {Object.keys(worker.working).map((key, idx) => <td key={idx}><button onClick={(e) => { handleClick(e, worker, key) }} style={{width: '100%'}}className={parseInt(worker.working[key][day_id - 1]) === 0 ? 'btn btn-danger' : parseInt(worker.working[key][day_id - 1]) === 1 ? 'btn btn-primary' : 'btn btn-warning'} value={1}></button></td>)}
                                     </tr>
                                 })}
                             </tbody>
