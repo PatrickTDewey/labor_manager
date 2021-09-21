@@ -50,6 +50,7 @@ const WorkerSchedule = () => {
                 setWorkers(unsorted.filter(worker => worker.availability[day_id - 1]).sort((a, b) => a.lastName.localeCompare(b.lastName)))
                 setUnavailable(unsorted.filter(worker => !(worker.availability[day_id - 1])))
                 setTime(Object.keys(res.data[0].working));
+                setSelect('24')
             })
             .catch(err => console.log(err))
     }, [day_id])
@@ -68,7 +69,7 @@ const WorkerSchedule = () => {
             })
             .catch(err => console.log(err))
     }
-    const submitHandler = (e) => {
+    const handleSelect = (e) => {
         e.preventDefault()
         setSelect(e.target.value)
         let timeCopy = [...time]
@@ -93,12 +94,10 @@ const WorkerSchedule = () => {
             {workers &&
                 <>
                     <h1> Worker Status - Day {day} </h1>
-                    <form onSubmit={(e) => submitHandler(e)}>
-                        <select name="time-format" id="time-format" value={select} onChange={e => submitHandler(e)}>
-                            <option value="24">Military</option>
-                            <option value="12" >12 Hour</option>
-                        </select>
-                    </form>
+                    <select name="time-format" id="time-format" value={select} onChange={e => handleSelect(e)}>
+                        <option value="24">Military</option>
+                        <option value="12" >12 Hour</option>
+                    </select>
                     <div className="d-flex">
                         <Link className="me-2 " to='/schedule/day/1'>Mon</Link>
                         <Link className="me-2 " to='/schedule/day/2'>Tues</Link>
