@@ -34,11 +34,11 @@ const TimeForm = (props) => {
             <h1>Set Hours</h1>
             <h3>Warning: changing hours of operation will reset the schedule</h3>
             <form onSubmit={submitHandler}>
-                <label htmlFor="start">Start Time</label>
+                <label htmlFor="start" className="me-2">Start Time:</label>
                 <input type="time" name="start" onChange={changeHandler} step="1800"/>
-                <label htmlFor="end">End Time</label>
+                <label htmlFor="end" className="me-2">End Time:</label>
                 <input type="time" name="end" onChange={changeHandler} step="1800"></input>
-                <button>Submit</button>
+                <button className="btn btn-primary ms-2">Submit</button>
             </form>
         </div>
     )
