@@ -1,8 +1,10 @@
 import axios from 'axios';
 import React, {useState} from 'react'
+import { useHistory } from 'react-router-dom';
 
 const TimeForm = () => {
     const [form, setForm] = useState();
+    const history = useHistory();
 
     const submitHandler = e => {
         e.preventDefault();
@@ -19,6 +21,7 @@ const TimeForm = () => {
         axios.put('http://localhost:8000/api/workers/update_all', obj)
             .then(res => console.log(res))
             .catch(err => console.log(err))
+        history.push('/')
     }
     const changeHandler = (e) =>{
         const {name, value} = e.target
