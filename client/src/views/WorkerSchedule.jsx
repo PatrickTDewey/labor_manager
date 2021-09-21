@@ -39,12 +39,14 @@ const WorkerSchedule = () => {
             break;
     }
     const [workers, setWorkers] = useState();
+    const [unavailable, setUnavailable] = useState([])
     useEffect(() => {
         axios.get("http://localhost:8000/api/workers")
             .then(res => {
                 let unsorted = res.data
                 // availability
-                setWorkers(unsorted.filter(worker => worker.availability[day_id-1]).sort((a, b) => a.lastName.localeCompare(b.lastName)))
+                setWorkers(unsorted.filter(worker => worker.availability[day_id - 1]).sort((a, b) => a.lastName.localeCompare(b.lastName)))
+                setUnavailable(unsorted.filter(worker => !(worker.availability[day_id - 1])))
             })
             .catch(err => console.log(err))
     }, [day_id])
@@ -97,6 +99,22 @@ const WorkerSchedule = () => {
                             </tbody>
                         </table>
                     </div>
+                    {unavailable.length >= 1 ?
+                    <div className="table-responsive">
+                        <table className="table table-hover table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Unavailable Workers</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {unavailable.map((worker, i) => <tr key={i}>
+                                    <td>{worker.firstName} {worker.lastName}</td>
+                                </tr>)}
+                            </tbody>
+                        </table>
+                    </div>
+                    : <h3 className="h5 text-success">*All Workers Available for {day}*</h3>}
                     <Link to='/'>Home</Link>
                 </>
 
