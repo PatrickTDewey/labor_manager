@@ -29,3 +29,6 @@ code {
   max-width: 50%;
   left: 25%;
 }
+.vertical-top {
+  vertical-align: top;
+}

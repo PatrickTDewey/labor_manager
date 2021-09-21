@@ -40,6 +40,8 @@ const WorkerSchedule = () => {
     }
     const [workers, setWorkers] = useState();
     const [unavailable, setUnavailable] = useState([])
+    const [time, setTime] = useState([])
+    const [select, setSelect] = useState('24')
     useEffect(() => {
         axios.get("http://localhost:8000/api/workers")
             .then(res => {
@@ -47,6 +49,7 @@ const WorkerSchedule = () => {
                 // availability
                 setWorkers(unsorted.filter(worker => worker.availability[day_id - 1]).sort((a, b) => a.lastName.localeCompare(b.lastName)))
                 setUnavailable(unsorted.filter(worker => !(worker.availability[day_id - 1])))
+                setTime(Object.keys(res.data[0].working));
             })
             .catch(err => console.log(err))
     }, [day_id])
@@ -65,11 +68,37 @@ const WorkerSchedule = () => {
             })
             .catch(err => console.log(err))
     }
+    const submitHandler = (e) => {
+        e.preventDefault()
+        setSelect(e.target.value)
+        let timeCopy = [...time]
+        if (e.target.value === '12') {
+            setTime(timeCopy.map(time => ((parseInt(time)+ 11) % 12 + 1) + time.slice(time.indexOf(':')) + (parseInt(time) >= 12 ? ' PM': ' AM')))
+        } else {
+            setTime(timeCopy.map(time => {
+                const [timeStr, amPm] = time.split(' ');
+                let [hours, minutes] = timeStr.split(':');
+                if (amPm === 'AM' && hours.length === 1) {
+                    hours = '0'+ hours;
+                }
+                if (amPm === 'PM' && hours!== '12') {
+                    hours = parseInt(hours) + 12
+                }
+                return `${hours}:${minutes}`
+            }))
+        }
+    }
     return (
         <div>
             {workers &&
                 <>
                     <h1> Worker Status - Day {day} </h1>
+                    <form onSubmit={(e) => submitHandler(e)}>
+                        <select name="time-format" id="time-format" value={select} onChange={e => submitHandler(e)}>
+                            <option value="24">Military</option>
+                            <option value="12" >12 Hour</option>
+                        </select>
+                    </form>
                     <div className="d-flex">
                         <Link className="me-2 " to='/schedule/day/1'>Mon</Link>
                         <Link className="me-2 " to='/schedule/day/2'>Tues</Link>
@@ -80,12 +109,12 @@ const WorkerSchedule = () => {
                         <Link className="me-2" to='/schedule/day/7'>Sun</Link>
                     </div>
                     <div className="table-responsive">
-                        <table className="table table-sm table-dark table-hover table-striped">
+                        <table className="table table-dark table-hover table-striped">
                             <thead>
                                 <tr>
                                     <th>Worker Name</th>
                                     {
-                                        Object.keys(workers[0].working).map((key, i) => <th key={i}>{key}</th>)
+                                        time.map((key, i) => <th className="vertical-top" key={i}>{key}</th>)
                                     }
                                 </tr>
                             </thead>
@@ -99,22 +128,30 @@ const WorkerSchedule = () => {
                             </tbody>
                         </table>
                     </div>
-                    {unavailable.length >= 1 ?
-                    <div className="table-responsive">
-                        <table className="table table-hover table-striped">
-                            <thead>
-                                <tr>
-                                    <th>Unavailable Workers</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {unavailable.map((worker, i) => <tr key={i}>
-                                    <td>{worker.firstName} {worker.lastName}</td>
-                                </tr>)}
-                            </tbody>
-                        </table>
+                    <div className="legend d-flex align-items-center justify-content-center">
+                        <span className='btn btn-primary me-2' style={{'cursor':'auto'}} ></span>
+                        <span className="me-2">Working</span>
+                        <span className='btn btn-danger me-2' style={{'cursor':'auto'}}></span>
+                        <span className="me-2">Not scheduled</span>
+                        <span className='btn btn-warning me-2' style={{'cursor':'auto'}}></span>
+                        <span>Lunch</span>
                     </div>
-                    : <h3 className="h5 text-success">*All Workers Available for {day}*</h3>}
+                    {unavailable.length >= 1 ?
+                        <div className="table-responsive">
+                            <table className="table table-hover table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Unavailable Workers</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {unavailable.map((worker, i) => <tr key={i}>
+                                        <td>{worker.firstName} {worker.lastName}</td>
+                                    </tr>)}
+                                </tbody>
+                            </table>
+                        </div>
+                        : <h3 className="h5 text-success">*All Workers Available for {day}*</h3>}
                     <Link to='/'>Home</Link>
                 </>
 
