@@ -10,7 +10,7 @@ const EditWorkerForm = (props) => {
         axios.get("http://localhost:8000/api/workers/" + id)
           .then(res => setWorker(res.data))
           .catch(err => console.log(err))
-      });
+      }, [id]);
 
     const changeHandler = (e) =>{
         const {name, value} = e.target
