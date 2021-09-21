@@ -43,6 +43,7 @@ const WorkerSchedule = () => {
         axios.get("http://localhost:8000/api/workers")
             .then(res => {
                 let unsorted = res.data
+                // availability
                 setWorkers(unsorted.filter(worker => worker.availability[day_id-1]).sort((a, b) => a.lastName.localeCompare(b.lastName)))
             })
             .catch(err => console.log(err))
