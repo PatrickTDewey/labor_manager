@@ -49,7 +49,7 @@ const WorkerSchedule = () => {
                 // availability
                 setWorkers(unsorted.filter(worker => worker.availability[day_id - 1]).sort((a, b) => a.lastName.localeCompare(b.lastName)))
                 setUnavailable(unsorted.filter(worker => !(worker.availability[day_id - 1])))
-                setTime(time.length > 1? time : Object.keys(res.data[0].working));
+                setTime(time.length > 1 ? time : Object.keys(res.data[0].working));
             })
             .catch(err => console.log(err))
     }, [day_id, time])

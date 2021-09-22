@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useHistory} from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 import axios from 'axios';
 import '../index.css'
 
@@ -44,33 +44,33 @@ const WorkerForm = (props) => {
             </div>
             <h4>Availability:</h4>
             <div className="form-check">
-                        <label htmlFor='0' className='me-2 form-check-label'>Monday</label>
-                        <input type='checkbox' className='form-check-input' name='0' checked={form.availability[0]} onChange={onChangeBox} />
-                    </div>
-                    <div className="form-check">
-                        <label htmlFor='1' className='me-2 form-check-label'>Tuesday</label>
-                        <input type='checkbox' className='form-check-input' name='1' checked={form.availability[1]} onChange={onChangeBox} />
-                    </div>
-                    <div className="form-check">
-                        <label htmlFor='2' className='me-2 form-check-label'>Wednesday</label>
-                        <input type='checkbox' className='form-check-input' name='2' checked={form.availability[2]} onChange={onChangeBox} />
-                    </div>
-                    <div className="form-check">
-                        <label htmlFor='3' className='me-2 form-check-label'>Thursday</label>
-                        <input type='checkbox' className='form-check-input' name='3' checked={form.availability[3]} onChange={onChangeBox} />
-                    </div>
-                    <div className="form-check">
-                        <label htmlFor='4' className='me-2 form-check-label'>Friday</label>
-                        <input type='checkbox' className='form-check-input' name='4' checked={form.availability[4]} onChange={onChangeBox} />
-                    </div>
-                    <div className="form-check">
-                        <label htmlFor='5' className='me-2 form-check-label'>Saturday</label>
-                        <input type='checkbox' className='form-check-input' name='5' checked={form.availability[5]} onChange={onChangeBox} />
-                    </div>
-                    <div className="form-check">
-                        <label htmlFor='6' className='me-2 form-check-label'>Sunday</label>
-                        <input type='checkbox' className='form-check-input' name='6' checked={form.availability[6]} onChange={onChangeBox} />
-                    </div>
+                <label htmlFor='0' className='me-2 form-check-label'>Monday</label>
+                <input type='checkbox' className='form-check-input' name='0' checked={form.availability[0]} onChange={onChangeBox} />
+            </div>
+            <div className="form-check">
+                <label htmlFor='1' className='me-2 form-check-label'>Tuesday</label>
+                <input type='checkbox' className='form-check-input' name='1' checked={form.availability[1]} onChange={onChangeBox} />
+            </div>
+            <div className="form-check">
+                <label htmlFor='2' className='me-2 form-check-label'>Wednesday</label>
+                <input type='checkbox' className='form-check-input' name='2' checked={form.availability[2]} onChange={onChangeBox} />
+            </div>
+            <div className="form-check">
+                <label htmlFor='3' className='me-2 form-check-label'>Thursday</label>
+                <input type='checkbox' className='form-check-input' name='3' checked={form.availability[3]} onChange={onChangeBox} />
+            </div>
+            <div className="form-check">
+                <label htmlFor='4' className='me-2 form-check-label'>Friday</label>
+                <input type='checkbox' className='form-check-input' name='4' checked={form.availability[4]} onChange={onChangeBox} />
+            </div>
+            <div className="form-check">
+                <label htmlFor='5' className='me-2 form-check-label'>Saturday</label>
+                <input type='checkbox' className='form-check-input' name='5' checked={form.availability[5]} onChange={onChangeBox} />
+            </div>
+            <div className="form-check">
+                <label htmlFor='6' className='me-2 form-check-label'>Sunday</label>
+                <input type='checkbox' className='form-check-input' name='6' checked={form.availability[6]} onChange={onChangeBox} />
+            </div>
             <input type="submit" value="Add Worker" className="btn btn-primary" />
         </form>
     )
