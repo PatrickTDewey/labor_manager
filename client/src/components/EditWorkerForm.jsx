@@ -5,6 +5,7 @@ import '../index.css'
 
 const EditWorkerForm = (props) => {
     const [worker, setWorker] = useState();
+    const [error, setError] = useState({})
     const { id } = useParams();
     useEffect(() => {
         axios.get("http://localhost:8000/api/workers/" + id)
@@ -31,7 +32,14 @@ const EditWorkerForm = (props) => {
         e.preventDefault();
         axios.put("http://localhost:8000/api/workers/update/" + id, worker)
             .then(res => history.push('/'))
-            .catch(err => console.log(err))
+            .catch(err => {
+                const { errors } = err.response.data
+                let errorObj = {}
+                for (let [key, value] of Object.entries(errors)) {
+                    errorObj[key] = value.message
+                }
+                setError(errorObj)
+            })
 
     }
     return (
@@ -42,10 +50,14 @@ const EditWorkerForm = (props) => {
                         <input type="text" className="form-control" name="firstName" id="firstName" placeholder="first name" value={worker.firstName} onChange={changeHandler} />
                         <label htmlFor="firstName">First Name:</label>
                     </div>
+                    {(error.firstName) ? <p style={{ color: 'red' }}>{error.firstName}</p> : null}
+
                     <div className="form-floating mb-3">
                         <input type="text" className="form-control" name="lastName" id="lastName" placeholder="last name" value={worker.lastName} onChange={changeHandler} />
                         <label htmlFor="lastName">Last Name:</label>
                     </div>
+                    {(error.lastName) ? <p style={{ color: 'red' }}>{error.lastName}</p> : null}
+
                     <h4>Availability:</h4>
                     <div className="form-check">
                         <label htmlFor='0' className='me-2 form-check-label'>Monday</label>
