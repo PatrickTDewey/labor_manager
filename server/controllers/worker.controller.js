@@ -13,7 +13,7 @@ module.exports.newWorker = (req, res) => {
 module.exports.updateWorker = (req, res) => {
     Worker.findOneAndUpdate({ _id: req.params.id }, req.body, { new: true })
       .then(updatedWorker => res.json(updatedWorker))
-      .catch(err => res.json(err))
+      .catch(err => res.status(400).json(err))
   
 }
 module.exports.deleteWorker = (req, res) =>{
