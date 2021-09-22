@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom'
 import axios from 'axios';
 import '../index.css'
@@ -11,6 +11,16 @@ const WorkerForm = (props) => {
         availability: Array(7).fill(true),
         working
     });
+    useEffect(() => {
+        axios.get("http://localhost:8000/api/one/worker")
+          .then(res => {
+              let keys = Object.keys(res.data.working)
+              let clearObj = {} 
+              keys.forEach(key => clearObj[key] = Array(7).fill(0))
+              setForm({...form, working: {...clearObj}})
+            })
+          .catch(err => console.log(err))
+      }, []);
 
     const changeHandler = (e) => {
         const { name, value } = e.target
