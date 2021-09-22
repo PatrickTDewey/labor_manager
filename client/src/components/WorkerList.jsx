@@ -23,8 +23,8 @@ const WorkerList = ({ workers, onDelete }) => {
                     </tr>
                 </thead>
                 <tbody>
-                    {workers.map(worker => {
-                        return <tr key={worker.firstName} >
+                    {workers.map((worker, i) => {
+                        return <tr key={i} >
                             <td>{worker.firstName} {worker.lastName}</td>
                             <td>{worker.availability.map((a,i) => {
                                 switch(i){

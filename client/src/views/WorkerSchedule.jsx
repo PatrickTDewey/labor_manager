@@ -81,7 +81,10 @@ const WorkerSchedule = () => {
                 if (amPm === 'AM' && hours.length === 1) {
                     hours = '0'+ hours;
                 }
-                if (amPm === 'PM' && hours!== '12') {
+                if (parseInt(hours) === 12) {
+                    hours = '00'
+                }
+                if (amPm === 'PM') {
                     hours = parseInt(hours) + 12
                 }
                 return `${hours}:${minutes}`
