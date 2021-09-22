@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useHistory, Link, useParams } from 'react-router-dom'
+import { useHistory, useParams } from 'react-router-dom'
 import axios from 'axios';
 import '../index.css'
 
@@ -27,10 +27,8 @@ const EditWorkerForm = (props) => {
     
     const history = useHistory();
     const onSubmitHandler = e => {
-        // prevent default behavior of the submit
+
         e.preventDefault();
-        // make a post request to create a new user\
-        
         axios.put("http://localhost:8000/api/workers/update/" +id, worker)
             .then(res => history.push('/'))
             .catch(err => console.log(err))
@@ -48,10 +46,6 @@ const EditWorkerForm = (props) => {
                         <input type="text" className="form-control" name="lastName" id="lastName" placeholder="last name" value={worker.lastName} onChange={changeHandler} />
                         <label htmlFor="lastName">Last Name:</label>
                     </div>
-                    {/* <div className="form-floating mb-3">
-                <input type="text" className="form-control" name="position" id="position" placeholder="position" value={form.position} onChange={(e) => setForm({ ...form, position: e.target.value })} />
-                <label htmlFor="position">Position:</label>
-            </div> */}
                     <h4>Availability:</h4>
                     <div>
                         <label htmlFor='0' className='me-2 form-label'>Monday</label>

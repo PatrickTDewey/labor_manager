@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useHistory, Link } from 'react-router-dom'
+import { useHistory} from 'react-router-dom'
 import axios from 'axios';
 import '../index.css'
 
@@ -42,10 +42,6 @@ const WorkerForm = (props) => {
                 <input type="text" className="form-control" name="lastName" id="lastName" placeholder="last name" value={form.lastName} onChange={changeHandler} />
                 <label htmlFor="lastName">Last Name:</label>
             </div>
-            {/* <div className="form-floating mb-3">
-                <input type="text" className="form-control" name="position" id="position" placeholder="position" value={form.position} onChange={(e) => setForm({ ...form, position: e.target.value })} />
-                <label htmlFor="position">Position:</label>
-            </div> */}
             <h4>Availability:</h4>
             <div>
                 <label htmlFor='0' className='me-2 form-label'>Monday</label>
