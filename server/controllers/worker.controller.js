@@ -3,7 +3,7 @@ const { Worker } = require('../models/worker.model');
 module.exports.findAllWorkers = (req, res) => {
   Worker.find().sort({lastName:'asc'})
     .then(users => res.json(users))
-    .catch(err => res.json(err))
+    .catch(err => res.status(404).json(err))
 }
 module.exports.newWorker = (req, res) => {
   Worker.create(req.body)
@@ -31,4 +31,9 @@ module.exports.updateAll = (req,res) =>{
   Worker.updateMany({}, {working: req.body})
     .then(conf => res.json(conf))
     .catch(err => res.status(400).json(err))
+}
+module.exports.findFirst = (req, res) => {
+  Worker.findOne({})
+    .then(worker => res.json(worker))
+    .catch(err => res.status(404).json(err))
 }

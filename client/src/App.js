@@ -8,21 +8,6 @@ import TimeForm from './components/TimeForm';
 import React, {useState} from 'react'
 
 //pair programmed by Patrick Dewey and Spencer Rauch
-// const addSubmit = e => {
-//   // prevent default behavior of the submit
-//   e.preventDefault();
-//   // make a post request to create a new user\
-//   const { firstName, lastName} = form
-//   axios.post("http://localhost:8000/api/workers/new", { firstName, lastName})
-//       .then(res => console.log(res))
-//       .catch(err => console.log(err))
-//   history.push('/')
-// }
-
-// const editSubmit = e => {
-//   e.preventDefault();
-//   const { firstName, lastName} = form
-// }
 
 function App() {
   const [working, setWorking] = useState({
