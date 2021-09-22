@@ -46,36 +46,36 @@ const WorkerForm = (props) => {
                 <input type="text" className="form-control" name="position" id="position" placeholder="position" value={form.position} onChange={(e) => setForm({ ...form, position: e.target.value })} />
                 <label htmlFor="position">Position:</label>
             </div> */}
+            <h4>Availability:</h4>
             <div>
-                <label htmlFor='0'>Monday</label>
+                <label htmlFor='0' className='me-2 form-label'>Monday</label>
                 <input type='checkbox' name='0' checked={form.availability[0]} onChange={onChangeBox} />
             </div>
             <div>
-                <label htmlFor='1'>Tuesday</label>
+                <label htmlFor='1' className='me-2 form-label'>Tuesday</label>
                 <input type='checkbox' name='1' checked={form.availability[1]} onChange={onChangeBox} />
             </div>
             <div>
-                <label htmlFor='2'>Wednesday</label>
+                <label htmlFor='2' className='me-2 form-label'>Wednesday</label>
                 <input type='checkbox' name='2' checked={form.availability[2]} onChange={onChangeBox} />
             </div>
             <div>
-                <label htmlFor='3'>Thursday</label>
+                <label htmlFor='3' className='me-2 form-label'>Thursday</label>
                 <input type='checkbox' name='3' checked={form.availability[3]} onChange={onChangeBox} />
             </div>
             <div>
-                <label htmlFor='4'>Friday</label>
+                <label htmlFor='4' className='me-2 form-label'>Friday</label>
                 <input type='checkbox' name='4' checked={form.availability[4]} onChange={onChangeBox} />
             </div>
             <div>
-                <label htmlFor='5'>Saturday</label>
+                <label htmlFor='5' className='me-2 form-label'>Saturday</label>
                 <input type='checkbox' name='5' checked={form.availability[5]} onChange={onChangeBox} />
             </div>
             <div>
-            <label htmlFor='6'>Sunday</label>
+            <label htmlFor='6' className='me-2 form-label'>Sunday</label>
             <input type='checkbox' name='6' checked={form.availability[6]} onChange={onChangeBox} />
             </div>
             <input type="submit" value="Add Worker" className="btn btn-primary" />
-            <Link className="ms-3" to='/'>Home</Link>
         </form>
     )
 }

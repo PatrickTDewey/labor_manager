@@ -150,7 +150,6 @@ const WorkerSchedule = () => {
                             </table>
                         </div>
                         : <h3 className="h5 text-success">*All Workers Available for {day}*</h3>}
-                    <Link to='/'>Home</Link>
                 </>
 
             }

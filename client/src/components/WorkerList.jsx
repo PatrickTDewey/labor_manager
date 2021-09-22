@@ -60,7 +60,6 @@ const WorkerList = ({ workers, onDelete }) => {
                 <button className="btn btn-danger me-2" onClick={confirmDelete}>Yes</button>
                 <button className="btn btn-warning" onClick={() => setState(false)}>No</button>
             </div>:null}
-            <Link to='/workers/add' className="btn btn-primary">Add Worker</Link>
         </>
     )
 }
