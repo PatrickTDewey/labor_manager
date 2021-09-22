@@ -92,7 +92,7 @@ const WorkerSchedule = () => {
         <div>
             {workers &&
                 <>
-                    <h1> Worker Status - Day {day} </h1>
+                    <h1> Worker Status - {day} </h1>
                     <select name="time-format" id="time-format" value={select} onChange={e => handleSelect(e)}>
                         <option value="24">Military</option>
                         <option value="12" >12 Hour</option>
