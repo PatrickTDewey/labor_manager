@@ -42,12 +42,24 @@ const WorkerSchedule = () => {
     const [unavailable, setUnavailable] = useState([])
     const [time, setTime] = useState([])
     const [select, setSelect] = useState('24')
+    const sortFunc = (a,b) => {
+        let sortNum = a.lastName.localeCompare(b.lastName)
+        if (sortNum !== 0){
+            return sortNum
+        }
+        if (a._id < b._id){
+            return -1
+        }
+        return 1;
+
+
+    }
     useEffect(() => {
         axios.get("http://localhost:8000/api/workers")
             .then(res => {
                 let unsorted = res.data
                 // availability
-                setWorkers(unsorted.filter(worker => worker.availability[day_id - 1]).sort((a, b) => a.lastName.localeCompare(b.lastName)))
+                setWorkers(unsorted.filter(worker => worker.availability[day_id - 1]).sort((a,b) => sortFunc(a,b)))
                 setUnavailable(unsorted.filter(worker => !(worker.availability[day_id - 1])))
                 setTime(time.length > 1 ? time : Object.keys(res.data[0].working));
             })
@@ -64,7 +76,7 @@ const WorkerSchedule = () => {
         axios.put('http://localhost:8000/api/workers/update/' + worker._id, worker)
             .then(res => {
                 let unsorted = [...filteredWorkers, worker]
-                setWorkers(unsorted.sort((a, b) => (a.lastName.localeCompare(b.lastName))))
+                setWorkers(unsorted.sort((a, b) => sortFunc(a,b)))
             })
             .catch(err => console.log(err))
     }
