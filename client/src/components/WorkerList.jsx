@@ -48,7 +48,8 @@ const WorkerList = ({ workers, onDelete }) => {
                             })}</td>
                             <td>
                                 <button  onClick={() => clickHandler(worker._id)}className="btn btn-danger me-2">Delete</button>
-                                <Link to={`/workers/edit/${worker._id}`} className="btn btn-warning">Edit</Link>
+                                <Link to={`/workers/edit/${worker._id}`} className="btn btn-warning me-2">Edit</Link>
+                                <Link to={`/workers/details/${worker._id}`} className="btn btn-primary">Details</Link>
                             </td>
                             
                         </tr>

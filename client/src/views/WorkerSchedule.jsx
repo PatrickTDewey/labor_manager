@@ -122,7 +122,7 @@ const WorkerSchedule = () => {
                             <tbody>
                                 {workers && workers.map((worker, i) => {
                                     return <tr key={i}>
-                                        <td>{worker.firstName} {worker.lastName} </td>
+                                        <td><Link className="text-light"to={`/workers/details/${worker._id}`}>{worker.firstName} {worker.lastName}</Link></td>
                                         {Object.keys(worker.working).map((key, idx) => <td key={idx}><button onClick={(e) => { handleClick(e, worker, key) }} style={{width: '100%'}}className={parseInt(worker.working[key][day_id - 1]) === 0 ? 'btn btn-danger' : parseInt(worker.working[key][day_id - 1]) === 1 ? 'btn btn-primary' : 'btn btn-warning'} value={1}></button></td>)}
                                     </tr>
                                 })}
@@ -147,7 +147,7 @@ const WorkerSchedule = () => {
                                 </thead>
                                 <tbody>
                                     {unavailable.map((worker, i) => <tr key={i}>
-                                        <td>{worker.firstName} {worker.lastName}</td>
+                                    <td><Link className="btn-link"to={`/workers/details/${worker._id}`}>{worker.firstName} {worker.lastName}</Link></td>
                                     </tr>)}
                                 </tbody>
                             </table>
