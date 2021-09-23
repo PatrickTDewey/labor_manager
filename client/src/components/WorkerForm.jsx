@@ -1,8 +1,8 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom'
 import axios from 'axios';
 import '../index.css'
-
 const WorkerForm = (props) => {
     const { working } = props
     const [form, setForm] = useState({

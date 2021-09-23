@@ -5,6 +5,7 @@ import NavBar from './components/NavBar';
 import WorkerSchedule from './views/WorkerSchedule'
 import EditWorkerForm from './components/EditWorkerForm'
 import TimeForm from './components/TimeForm';
+import WorkerDetails from './views/WorkerDetails';
 import React, {useState} from 'react'
 
 //pair programmed by Patrick Dewey and Spencer Rauch
@@ -55,6 +56,9 @@ function App() {
           </Route>
           <Route exact path='/workers/edit/:id'>
             <EditWorkerForm/>
+          </Route>
+          <Route exact path='/workers/details/:id'>
+            <WorkerDetails/>
           </Route>
           <Route exact path='/'>
             <Main />
