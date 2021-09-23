@@ -11,16 +11,17 @@ const WorkerForm = (props) => {
         availability: Array(7).fill(true),
         working
     });
+    const [error, setError] = useState({});
     useEffect(() => {
         axios.get("http://localhost:8000/api/one/worker")
-          .then(res => {
-              let keys = Object.keys(res.data.working)
-              let clearObj = {} 
-              keys.forEach(key => clearObj[key] = Array(7).fill(0))
-              setForm({...form, working: {...clearObj}})
+            .then(res => {
+                let keys = Object.keys(res.data.working)
+                let clearObj = {}
+                keys.forEach(key => clearObj[key] = Array(7).fill(0))
+                setForm({ ...form, working: { ...clearObj } })
             })
-          .catch(err => console.log(err))
-      }, []);
+            .catch(err => console.log(err))
+    }, []);
 
     const changeHandler = (e) => {
         const { name, value } = e.target
@@ -38,9 +39,16 @@ const WorkerForm = (props) => {
     const onSubmitHandler = e => {
         e.preventDefault();
         axios.post("http://localhost:8000/api/workers/new", form)
-            .then(res => console.log(res))
-            .catch(err => console.log(err))
-        history.push('/')
+            .then(res => history.push('/'))
+            .catch(err => {
+                const { errors } = err.response.data
+                let errorObj = {}
+                for (let [key, value] of Object.entries(errors)) {
+                    errorObj[key] = value.message
+                }
+                setError(errorObj)
+            })
+
     }
     return (
         <form onSubmit={onSubmitHandler} >
@@ -48,10 +56,12 @@ const WorkerForm = (props) => {
                 <input type="text" className="form-control" name="firstName" id="firstName" placeholder="first name" value={form.firstName} onChange={changeHandler} />
                 <label htmlFor="firstName">First Name:</label>
             </div>
+            {(error.firstName) ? <p style={{ color: 'red' }}>{error.firstName}</p> : null}
             <div className="form-floating mb-3">
                 <input type="text" className="form-control" name="lastName" id="lastName" placeholder="last name" value={form.lastName} onChange={changeHandler} />
                 <label htmlFor="lastName">Last Name:</label>
             </div>
+            {(error.lastName) ? <p style={{ color: 'red' }}>{error.lastName}</p> : null}
             <h4>Availability:</h4>
             <div className="form-check">
                 <label htmlFor='0' className='me-2 form-check-label'>Monday</label>
