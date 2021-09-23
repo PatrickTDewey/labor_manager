@@ -32,24 +32,25 @@ const WorkerDetails = () => {
                                 end: key,
                             }
                             weekCopy[i].day = days[i];
-                            count += 0.5
+                            count = count + 0.5
                         }
                         else if (res.data.working[key][i] === 1 && weekCopy[i].shifts[shiftIndex]) {
                             weekCopy[i].shifts[shiftIndex].end = key
-                            count += 0.5
+                            count = count + 0.5
                         }
                         else if (res.data.working[key][i] === 2 && weekCopy[i].shifts[shiftIndex]) {
                             weekCopy[i].shifts[shiftIndex].lunch = key
                         } else if (res.data.working[key][i] === 0 && weekCopy[i].shifts[shiftIndex]) {
                             shiftIndex++
                         }
-                        weekCopy[i].hours = count
                         console.log(key);
                     })
-                    if (weekCopy[i].end) {
-                        let [hours, minutes] = weekCopy[i].end.split(':');
-                        parseInt(minutes) === 30 ? weekCopy[i].end = `${parseInt(hours) + 1}:00` : weekCopy[i].end = `${hours}:30`
-                    }
+                    weekCopy[i].hours = count
+                    weekCopy[i].shifts.map(item => {
+                        let [hours, minutes] = item.end.split(':');
+                        return parseInt(minutes) === 30 ? item.end = `${parseInt(hours) + 1}:00` : item.end = `${hours}:30`
+                    })
+
                     setWeekBreakdown(weekCopy)
                 }
                 setWorker(res.data)
@@ -74,12 +75,14 @@ const WorkerDetails = () => {
                                             return <>
                                                 {breakdown.shifts.length > 1 ? <div className={`col-sm-` + (Math.trunc(12 / breakdown.shifts.length))}>
                                                     <strong className="text-warning">Shift #{i + 1}:</strong>
-                                                    <p className="p mt-2">Start: {shift.start}</p>
-                                                    <p classNam="p">End: {shift.end}</p>
+                                                    <p className="mt-2">Start: {shift.start}</p>
+                                                    <p className="">End: {shift.end}</p>
+                                                    {shift.lunch ? <p>Lunch: {shift.lunch}</p> : null}
                                                 </div> : <div className="col-sm-12">
                                                     <strong className="text-warning">Shift:</strong>
-                                                    <p className="p mt-2">Start: {shift.start}</p>
-                                                    <p classNam="p">End: {shift.end}</p>
+                                                    <p className=" mt-2">Start: {shift.start}</p>
+                                                    <p className="">End: {shift.end}</p>
+                                                    {shift.lunch ? <p>Lunch: {shift.lunch}</p> : null}
                                                 </div>}
                                             </>
                                         })}
@@ -102,12 +105,14 @@ const WorkerDetails = () => {
                                             return <>
                                                 {breakdown.shifts.length > 1 ? <div className={`col-sm-` + (Math.trunc(12 / breakdown.shifts.length))}>
                                                     <strong className="text-warning">Shift #{i + 1}:</strong>
-                                                    <p className="p mt-2">Start: {shift.start}</p>
-                                                    <p classNam="p">End: {shift.end}</p>
+                                                    <p className="mt-2">Start: {shift.start}</p>
+                                                    <p className="">End: {shift.end}</p>
+                                                    {shift.lunch ? <p>Lunch: {shift.lunch}</p> : null}
                                                 </div> : <div className="col-sm-12">
                                                     <strong className="text-warning">Shift:</strong>
-                                                    <p className="p mt-2">Start: {shift.start}</p>
-                                                    <p classNam="p">End: {shift.end}</p>
+                                                    <p className=" mt-2">Start: {shift.start}</p>
+                                                    <p className="">End: {shift.end}</p>
+                                                    {shift.lunch ? <p>Lunch: {shift.lunch}</p> : null}
                                                 </div>}
                                             </>
                                         })}
