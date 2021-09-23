@@ -69,18 +69,21 @@ const WorkerDetails = () => {
                             {weekBreakdown.filter((item, idx) => item.hours > 0 && today > idx).map((breakdown, i) => {
                                 return <div key={i}>
                                     <h3 className="h4 text-info">{breakdown.day} </h3>{breakdown.shifts.length > 1 && <><small className="text-secondary">({breakdown.shifts.length} Total)</small><br /></>}
-
-
-
-                                    {breakdown.shifts.map((shift, i) => {
-                                        return <>
-
-                                            {breakdown.shifts.length > 1 ? <strong className="text-warning">Shift #{i + 1}:</strong> : <strong className="text-warning">Shift:</strong>}
-                                            <p className="p mt-2">Start: {shift.start}</p>
-                                            <p classNam="p">End: {shift.end}</p>
-                                            {breakdown.shifts.length > 1 && i !== breakdown.shifts.length - 1 ? <hr /> : null}
-                                        </>
-                                    })}
+                                    <div className="row">
+                                        {breakdown.shifts.map((shift, i) => {
+                                            return <>
+                                                {breakdown.shifts.length > 1 ? <div className={`col-sm-` + (Math.trunc(12 / breakdown.shifts.length))}>
+                                                    <strong className="text-warning">Shift #{i + 1}:</strong>
+                                                    <p className="p mt-2">Start: {shift.start}</p>
+                                                    <p classNam="p">End: {shift.end}</p>
+                                                </div> : <div className="col-sm-12">
+                                                    <strong className="text-warning">Shift:</strong>
+                                                    <p className="p mt-2">Start: {shift.start}</p>
+                                                    <p classNam="p">End: {shift.end}</p>
+                                                </div>}
+                                            </>
+                                        })}
+                                    </div>
                                     <strong className="text-info">Hours Worked: {breakdown.hours}</strong>
                                     <hr />
                                 </div>
@@ -94,18 +97,21 @@ const WorkerDetails = () => {
                             {weekBreakdown.filter((item, idx) => item.hours > 0 && today <= idx).map((breakdown, i) => {
                                 return <div key={i}>
                                     <h3 className="h4 text-info">{breakdown.day} </h3>{breakdown.shifts.length > 1 && <><small className="text-secondary">({breakdown.shifts.length} Total)</small><br /></>}
-
-
-
-                                    {breakdown.shifts.map((shift, i) => {
-                                        return <>
-
-                                            {breakdown.shifts.length > 1 ? <strong className="text-warning">Shift #{i + 1}:</strong> : <strong className="text-warning">Shift:</strong>}
-                                            <p className="p mt-2">Start: {shift.start}</p>
-                                            <p classNam="p">End: {shift.end}</p>
-                                            {breakdown.shifts.length > 1 && i !== breakdown.shifts.length - 1 ? <hr /> : null}
-                                        </>
-                                    })}
+                                    <div className="row">
+                                        {breakdown.shifts.map((shift, i) => {
+                                            return <>
+                                                {breakdown.shifts.length > 1 ? <div className={`col-sm-` + (Math.trunc(12 / breakdown.shifts.length))}>
+                                                    <strong className="text-warning">Shift #{i + 1}:</strong>
+                                                    <p className="p mt-2">Start: {shift.start}</p>
+                                                    <p classNam="p">End: {shift.end}</p>
+                                                </div> : <div className="col-sm-12">
+                                                    <strong className="text-warning">Shift:</strong>
+                                                    <p className="p mt-2">Start: {shift.start}</p>
+                                                    <p classNam="p">End: {shift.end}</p>
+                                                </div>}
+                                            </>
+                                        })}
+                                    </div>
                                     <strong className="text-info">Hours Worked: {breakdown.hours}</strong>
                                     <hr />
                                 </div>
