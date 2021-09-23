@@ -25,24 +25,46 @@ const WorkerDetails = () => {
                     let count = 0.0;
                     weekCopy[i].shifts = []
                     let shiftIndex = 0
-                    Object.keys(res.data.working).forEach(key => {
+                    let lunchStart = '';
+                    //['key']
+                    let workingKeys = Object.keys(res.data.working)
+                    workingKeys.forEach((key, idx) => {
                         if (!weekCopy[i].shifts[shiftIndex] && res.data.working[key][i] === 1) {
                             weekCopy[i].shifts[shiftIndex] = {
                                 start: key,
                                 end: key,
+                                lunch: []
                             }
                             weekCopy[i].day = days[i];
                             count = count + 0.5
+
                         }
                         else if (res.data.working[key][i] === 1 && weekCopy[i].shifts[shiftIndex]) {
                             weekCopy[i].shifts[shiftIndex].end = key
                             count = count + 0.5
+                            lunchStart = '';
                         }
                         else if (res.data.working[key][i] === 2 && weekCopy[i].shifts[shiftIndex]) {
-                            weekCopy[i].shifts[shiftIndex].lunch = key
+                            lunchStart = !lunchStart ? key : lunchStart
+                            // console.log(idx);
+                            console.log(res.data.working[workingKeys[idx + 1]][i]);
+                            while (res.data.working[workingKeys[idx + 1]][i] === 2) {
+                                idx++
+                            }
+                            // console.log(res.data.working[workingKeys[idx+1]][i]);
+                            // console.log(key);
+                            // console.log(workingKeys[idx+1]);
+                            // let [hours, minutes] = workingKeys[idx+1].split(':'), endLunch
+                            // parseInt(minutes) === 30 ? endLunch = `${parseInt(hours) + 1}:00` : endLunch = `${hours}:30`
+                            let lunchPeroid = `${lunchStart}-${workingKeys[idx + 1]} `
+                            let index = weekCopy[i].shifts[shiftIndex].lunch.indexOf(lunchPeroid)
+                            if (index === -1) {
+                                weekCopy[i].shifts[shiftIndex].lunch.push(`${lunchStart}-${workingKeys[idx + 1]} `)
+                            }
                         } else if (res.data.working[key][i] === 0 && weekCopy[i].shifts[shiftIndex]) {
                             shiftIndex++
                         }
+
                     })
                     weekCopy[i].hours = count
                     weekCopy[i].shifts.map(item => {
@@ -71,22 +93,23 @@ const WorkerDetails = () => {
                                     <h3 className="h4 text-info">{breakdown.day} </h3>{breakdown.shifts.length > 1 && <><small className="text-secondary">({breakdown.shifts.length} Total)</small><br /></>}
                                     <div className="row">
                                         {breakdown.shifts.map((shift, i) => {
-                                            return breakdown.shifts.length > 1 ? 
-                                                <div key={i}className={`col-sm-` + (Math.trunc(12 / breakdown.shifts.length))}>
+                                            return breakdown.shifts.length > 1 ?
+                                                <div key={i} className={`col-sm-` + (Math.trunc(12 / breakdown.shifts.length))}>
                                                     <strong className="text-warning">Shift #{i + 1}:</strong>
                                                     <p className="mt-2">Start: {shift.start}</p>
                                                     <p className="">End: {shift.end}</p>
-                                                    {shift.lunch ? <p>Lunch: {shift.lunch}</p> : null}
                                                 </div>
-                                                 : <div key={shift}className="col-sm-12">
+                                                : <div key={shift} className="col-sm-12">
                                                     <strong className="text-warning">Shift:</strong>
                                                     <p className=" mt-2">Start: {shift.start}</p>
                                                     <p className="">End: {shift.end}</p>
-                                                    {shift.lunch ? <p>Lunch: {shift.lunch}</p> : null}
                                                 </div>
-                                            
                                         })}
+
                                     </div>
+                                    <strong className="text-info">Lunch Breaks:</strong>
+                                    {breakdown.shifts.map(hasLunch => hasLunch.lunch.map((lunch, i) => <p><span className="text-warning">#{i + 1}:</span> {lunch}</p>))}
+
                                     <strong className="text-info">Hours Worked: {breakdown.hours}</strong>
                                     <hr />
                                 </div>
@@ -99,25 +122,25 @@ const WorkerDetails = () => {
                             <hr />
                             {weekBreakdown.filter((item, idx) => item.hours > 0 && today <= idx).map((breakdown, i) => {
                                 return <div key={i}>
-                                <h3 className="h4 text-info">{breakdown.day} </h3>{breakdown.shifts.length > 1 && <><small className="text-secondary">({breakdown.shifts.length} Total)</small><br /></>}
-                                <div className="row">
-                                    {breakdown.shifts.map((shift, i) => {
-                                        return breakdown.shifts.length > 1 ? 
-                                            <div key={i}className={`col-sm-` + (Math.trunc(12 / breakdown.shifts.length))}>
-                                                <strong className="text-warning">Shift #{i + 1}:</strong>
-                                                <p className="mt-2">Start: {shift.start}</p>
-                                                <p className="">End: {shift.end}</p>
-                                                {shift.lunch ? <p>Lunch: {shift.lunch}</p> : null}
-                                            </div>
-                                             : <div key={shift}className="col-sm-12">
-                                                <strong className="text-warning">Shift:</strong>
-                                                <p className=" mt-2">Start: {shift.start}</p>
-                                                <p className="">End: {shift.end}</p>
-                                                {shift.lunch ? <p>Lunch: {shift.lunch}</p> : null}
-                                            </div>
-                                        
-                                    })}
-                                </div>
+                                    <h3 className="h4 text-info">{breakdown.day} </h3>{breakdown.shifts.length > 1 && <><small className="text-secondary">({breakdown.shifts.length} Total)</small><br /></>}
+                                    <div className="row">
+                                        {breakdown.shifts.map((shift, i) => {
+                                            return breakdown.shifts.length > 1 ?
+                                                <div key={i} className={`col-sm-` + (Math.trunc(12 / breakdown.shifts.length))}>
+                                                    <strong className="text-warning">Shift #{i + 1}:</strong>
+                                                    <p className="mt-2">Start: {shift.start}</p>
+                                                    <p className="">End: {shift.end}</p>
+                                                    {shift.lunch ? <p>Lunch: {shift.lunch}</p> : null}
+                                                </div>
+                                                : <div key={shift} className="col-sm-12">
+                                                    <strong className="text-warning">Shift:</strong>
+                                                    <p className=" mt-2">Start: {shift.start}</p>
+                                                    <p className="">End: {shift.end}</p>
+                                                    {shift.lunch ? <p>Lunch: {shift.lunch}</p> : null}
+                                                </div>
+
+                                        })}
+                                    </div>
                                     <strong className="text-info">Hours Scheduled: {breakdown.hours}</strong>
                                     <hr />
                                 </div>
