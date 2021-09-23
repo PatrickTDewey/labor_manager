@@ -83,12 +83,32 @@ const WorkerDetails = () => {
             <div className="container my-4">
                 <h1 className="text-center mt-2 display-2">Hour Breakdown For {worker.firstName} {worker.lastName}</h1>
                 <hr />
+                {weekBreakdown.filter((item, idx) => item.hours > 0 && (today-1) === idx).map((breakdown, i) => {
+                                return <div className="row mx-0 justify-content-center bg-dark text-light mb-5" key={i}>
+                                    <h3 className="display-3 text-center text-info">Today's Schedule</h3>{breakdown.shifts.length > 1 && <><small className="text-secondary">({breakdown.shifts.length} Total)</small><br /></>}
+                                    <hr />
+                                        {breakdown.shifts.map((shift, i) => {
+                                                return<div key={shift} className="col-3">
+                                                    <strong className="text-warning h3">{breakdown.shifts.length > 1 ? `Shift #${i+1}`: `Shift`}:</strong>
+                                                    <p className="h3 mt-2">Start: {shift.start}</p>
+                                                    <p className="h3">End: {shift.end}</p>
+                                                </div>
+                                        })}
+                                    <div className="col-3">
+                                    <strong className="text-warning h3">Lunch Breaks:</strong>
+                                    {breakdown.shifts.map(hasLunch => hasLunch.lunch.map((lunch, i) => <p className="h3"><span className="text-info">#{i + 1}:</span> {lunch}</p>))}
+                                    <strong className="text-info h3">Hours Scheduled: {breakdown.hours}</strong>
+                                    </div>
+
+                                    <hr />
+                                </div>
+                            })}
                 <div className="row gx-4">
                     <div className="col-lg-6">
                         <div className="bg-dark p-5 text-light">
                             <h3 className="h3 text-info">Days Worked This Week</h3>
                             <hr />
-                            {weekBreakdown.filter((item, idx) => item.hours > 0 && today > idx).map((breakdown, i) => {
+                            {weekBreakdown.filter((item, idx) => item.hours > 0 && (today-1) > idx).map((breakdown, i) => {
                                 return <div key={i}>
                                     <h3 className="h4 text-info">{breakdown.day} </h3>{breakdown.shifts.length > 1 && <><small className="text-secondary">({breakdown.shifts.length} Total)</small><br /></>}
                                     <div className="row">
