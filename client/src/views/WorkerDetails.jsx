@@ -117,7 +117,7 @@ const WorkerDetails = () => {
                                             </>
                                         })}
                                     </div>
-                                    <strong className="text-info">Hours Worked: {breakdown.hours}</strong>
+                                    <strong className="text-info">Hours Scheduled: {breakdown.hours}</strong>
                                     <hr />
                                 </div>
                             })}
