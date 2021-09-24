@@ -14,7 +14,7 @@ const WorkerList = ({ workers, onDelete }) => {
     }
     return (
         <>
-            <table className={`table table-dark table-hover table-striped ` + (state ? `opacity` : '')}>
+            <table className={`table table-dark table-hover table-striped ` + (state ? `blur` : '')}>
                 <thead>
                     <tr>
                         <th>Worker Name</th>
