@@ -12,8 +12,7 @@ code {
     monospace;
 }
 
-.opacity {
-  opacity: 50%;
+.blur {
   filter: blur(1px);
 }
 .relative {

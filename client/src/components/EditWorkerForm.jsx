@@ -21,8 +21,12 @@ const EditWorkerForm = (props) => {
         const { name } = e.target;
         let index = parseInt(name)
         let newAvail = [...worker.availability]
+        let newWorking ={...worker.working}
+        for (let time in newWorking){
+            newWorking[time][index] = 0
+        }
         newAvail[index] = !newAvail[index];
-        setWorker({ ...worker, availability: newAvail })
+        setWorker({ ...worker, availability: newAvail, working: newWorking })
     }
 
 
@@ -87,6 +91,7 @@ const EditWorkerForm = (props) => {
                         <label htmlFor='6' className='me-2 form-check-label'>Sunday</label>
                         <input type='checkbox' className='form-check-input' name='6' checked={worker.availability[6]} onChange={onChangeBox} />
                     </div>
+                    <h3 style={{color:'red'}}> Submitting after toggling availability will reset schedule for that day </h3>
                     <input type="submit" value="Edit" className="btn btn-primary" />
                 </form>
 
