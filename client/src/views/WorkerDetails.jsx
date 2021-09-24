@@ -95,7 +95,7 @@ const WorkerDetails = () => {
                             </div>
                         })}
                         <hr />
-                        <strong className="text-info text-center h3">Hours Worked: {breakdown.hours}</strong>
+                        <strong className="text-info text-center h3">Total Hours For Today: {breakdown.hours}</strong>
                     </div>
                 })}
                 <div className="row gx-4">
