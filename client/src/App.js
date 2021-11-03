@@ -1,4 +1,4 @@
-import {BrowserRouter, Route, Switch} from 'react-router-dom'
+import {BrowserRouter, Route, Switch, Redirect} from 'react-router-dom'
 import WorkerForm from './components/WorkerForm';
 import Main from './views/Main';
 import NavBar from './components/NavBar';
@@ -54,6 +54,9 @@ function App() {
           <Route exact path='/workers/add'>
             <WorkerForm working={working} />
           </Route>
+          <Route exact path='/workers/list'>
+            <Main />
+          </Route>
           <Route exact path='/workers/edit/:id'>
             <EditWorkerForm/>
           </Route>
@@ -61,7 +64,7 @@ function App() {
             <WorkerDetails/>
           </Route>
           <Route exact path='/'>
-            <Main />
+            <Redirect to="/schedule/day/1"/>
           </Route>
 
         </Switch>
