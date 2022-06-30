@@ -42,6 +42,7 @@ const WorkerSchedule = () => {
     const [unavailable, setUnavailable] = useState([])
     const [time, setTime] = useState([])
     const [select, setSelect] = useState('24')
+    const [dragVal, setDragVal] = useState(0)
     const sortFunc = (a, b) => {
         let sortNum = a.lastName.localeCompare(b.lastName)
         if (sortNum !== 0) {
@@ -52,6 +53,8 @@ const WorkerSchedule = () => {
         }
         return 1;
     }
+
+
     useEffect(() => {
         axios.get("http://localhost:8000/api/workers")
             .then(res => {
@@ -63,6 +66,11 @@ const WorkerSchedule = () => {
             })
             .catch(err => console.log(err))
     }, [day_id, time])
+
+
+
+
+
     const handleClick = (e, worker, key) => {
         let filteredWorkers = workers.filter(a => worker._id !== a._id)
         if (worker.working[key][day_id - 1] < 2) {
@@ -78,6 +86,28 @@ const WorkerSchedule = () => {
             })
             .catch(err => console.log(err))
     }
+
+    const handleDrag = (e, worker, key) => {
+        console.log("TRIGGERED")
+        console.log(e)
+        let filteredWorkers = workers.filter(a => worker._id !== a._id)
+        // if (worker.working[key][day_id - 1] < 2) {
+        //     worker.working[key][day_id - 1] += parseInt(e.target.value)
+        // } else {
+        //     worker.working[key][day_id - 1] = 0
+        // }
+        worker.working[key][day_id - 1] = dragVal
+
+        axios.put('http://localhost:8000/api/workers/update/' + worker._id, worker)
+            .then(res => {
+                let unsorted = [...filteredWorkers, worker]
+                setWorkers(unsorted.sort((a, b) => sortFunc(a, b)))
+            })
+            .catch(err => console.log(err))
+    }
+
+
+
     const handleSelect = (e) => {
         e.preventDefault()
         setSelect(e.target.value)
@@ -101,6 +131,9 @@ const WorkerSchedule = () => {
             }))
         }
     }
+
+
+
     return (
         <div>
             {workers &&
@@ -133,19 +166,20 @@ const WorkerSchedule = () => {
                                 {workers && workers.map((worker, i) => {
                                     return <tr key={i}>
                                         <td><Link className="text-light"to={`/workers/details/${worker._id}`}>{worker.firstName} {worker.lastName}</Link></td>
-                                        {Object.keys(worker.working).map((key, idx) => <td key={idx}><button onClick={(e) => { handleClick(e, worker, key) }} style={{width: '100%'}}className={parseInt(worker.working[key][day_id - 1]) === 0 ? 'btn btn-danger' : parseInt(worker.working[key][day_id - 1]) === 1 ? 'btn btn-primary' : 'btn btn-warning'} value={1}></button></td>)}
+                                        {Object.keys(worker.working).map((key, idx) => <td key={idx}><button onDragEnter={e => handleDrag(e,worker,key)} draggable="true" onDrag={()=>setDragVal(worker.working[key][day_id - 1])}  onClick={(e) => { handleClick(e, worker, key) }} style={{width: '100%'}}className={parseInt(worker.working[key][day_id - 1]) === 0 ? 'btn btn-danger' : parseInt(worker.working[key][day_id - 1]) === 1 ? 'btn btn-primary' : 'btn btn-warning'} value={1}></button></td>)}
                                     </tr>
                                 })}
                                 {/* comment */}
                             </tbody>
                         </table>
                     </div>
+                    <h1>{JSON.stringify(dragVal)}</h1>
                     <div className="legend d-flex align-items-center justify-content-center">
-                        <span className='btn btn-primary me-2' style={{ 'cursor': 'auto' }} ></span>
+                        <span draggable="true" onDrag={()=>setDragVal(1)} className='btn btn-primary me-2' style={{ 'cursor': 'auto' }} ></span>
                         <span className="me-2">Working</span>
-                        <span className='btn btn-danger me-2' style={{ 'cursor': 'auto' }}></span>
+                        <span draggable="true" onDrag={()=>setDragVal(0)} className='btn btn-danger me-2' style={{ 'cursor': 'auto' }}></span>
                         <span className="me-2">Not scheduled</span>
-                        <span className='btn btn-warning me-2' style={{ 'cursor': 'auto' }}></span>
+                        <span draggable="true" onDrag={()=>setDragVal(3)} className='btn btn-warning me-2' style={{ 'cursor': 'auto' }}></span>
                         <span>Lunch</span>
                     </div>
                     {unavailable.length >= 1 ?
